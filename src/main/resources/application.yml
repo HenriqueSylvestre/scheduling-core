@@ -1,0 +1,26 @@
+app:
+  version: 1.0.0
+
+spring:
+  jpa:
+    properties:
+      hibernate:
+        format_sql: true
+        use_sql_comments: true
+        show_sql: true
+    hibernate:
+      ddl-auto: none
+  datasource:
+    url: ${MAGALUSCHEDULING_DATASOURCE_URL}
+    username: ${MAGALUSCHEDULING_DATASOURCE_NAME}
+    password: ${MAGALUSCHEDULING_DATASOURCE_PASSWORD}
+  jackson:
+    default-property-inclusion: non_null
+
+flyway:
+  user: ${MAGALUSCHEDULING_DATASOURCE_NAME}
+  password: ${MAGALUSCHEDULING_DATASOURCE_PASSWORD}
+  schemas: ${MAGALUSCHEDULING_DATASOURCE_SCHEMA}
+
+hibernate:
+  globally_quoted_identifiers: true

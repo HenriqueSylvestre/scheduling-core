@@ -1,0 +1,12 @@
+version: '2.2'
+services:
+  db:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: magaluscheduling
+      MYSQL_DATABASE: magaluscheduling
+      MYSQL_USER: magaluscheduling
+      MYSQL_PASSWORD: magaluscheduling
+    ports:
+      - "3307:3306"
+
