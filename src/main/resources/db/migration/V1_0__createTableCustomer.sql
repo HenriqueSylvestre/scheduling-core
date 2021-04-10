@@ -1,0 +1,9 @@
+CREATE TABLE customer (
+    uuid CHAR(36) NOT NULL,
+    name VARCHAR(128) NOT NULL,
+    email VARCHAR(128) DEFAULT NULL UNIQUE,
+    phone VARCHAR(13) DEFAULT NULL UNIQUE,
+    push CHAR(36) DEFAULT NULL UNIQUE,
+    whatsapp TINYINT(1),
+    PRIMARY KEY (uuid)
+)
