@@ -13,8 +13,8 @@ import java.util.UUID;
 @ToString(of = "uuid")
 @Builder
 @Entity
-@Table(name = "costumer")
-public class Costumer {
+@Table(name = "customer")
+public class Customer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

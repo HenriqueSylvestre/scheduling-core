@@ -26,7 +26,7 @@ public class Scheduling {
 
     @ManyToOne
     @JoinColumn(name = "costumer_uuid")
-    private Costumer receiver;
+    private Customer receiver;
 
     @OneToOne
     @JoinColumn(name = "scheduling_email_uuid")
