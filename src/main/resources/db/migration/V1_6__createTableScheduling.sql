@@ -2,7 +2,7 @@ CREATE TABLE scheduling (
     uuid CHAR(36) NOT NULL,
     send DATETIME NOT NULL,
     message VARCHAR(255) NOT NULL,
-    customer_uuid CHAR (36) NOT NULL,
+    customer_uuid CHAR(36) NOT NULL,
     scheduling_email_uuid CHAR(36) DEFAULT NULL,
     scheduling_sms_uuid CHAR(36) DEFAULT NULL,
     scheduling_push_uuid CHAR(36) DEFAULT NULL,

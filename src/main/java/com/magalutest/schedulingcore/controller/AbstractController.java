@@ -12,4 +12,8 @@ public abstract class AbstractController {
                 .data(Arrays.asList(entity))
                 .build());
     }
+
+    public <T> ResponseEntity build(final HttpStatus httpStatus) {
+        return (ResponseEntity) ResponseEntity.status(httpStatus);
+    }
 }

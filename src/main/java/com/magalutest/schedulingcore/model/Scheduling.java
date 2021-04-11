@@ -25,7 +25,7 @@ public class Scheduling {
     private String message;
 
     @ManyToOne
-    @JoinColumn(name = "costumer_uuid")
+    @JoinColumn(name = "customer_uuid")
     private Customer receiver;
 
     @OneToOne

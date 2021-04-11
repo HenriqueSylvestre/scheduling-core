@@ -46,6 +46,6 @@ public class SchedulingController extends AbstractController{
     @DeleteMapping(path = "/{uuid}")
     public ResponseEntity<Response> delete(@PathVariable(value = "uuid") final UUID uuid) {
         schedulingBusiness.deleteByUuid(uuid);
-        return super.build(HttpStatus.OK, true);
+        return super.build(HttpStatus.NO_CONTENT);
     }
 }
