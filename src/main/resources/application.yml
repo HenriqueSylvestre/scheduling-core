@@ -24,8 +24,3 @@ flyway:
 
 hibernate:
   globally_quoted_identifiers: true
-
-MAGALUSCHEDULING_DATASOURCE_URL: jdbc:mysql://localhost:3307/magaluscheduling
-MAGALUSCHEDULING_DATASOURCE_NAME: magaluscheduling
-MAGALUSCHEDULING_DATASOURCE_PASSWORD: magaluscheduling
-MAGALUSCHEDULING_DATASOURCE_SCHEMA: magaluscheduling
