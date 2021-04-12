@@ -2,15 +2,25 @@ package com.magalutest.schedulingcore.config;
 
 import com.magalutest.schedulingcore.exception.NotFoundException;
 import com.magalutest.schedulingcore.exception.OneOrMoreParametersWereIncorrectly;
+import com.magalutest.schedulingcore.exception.ReceiverNotContainValidMeansCommunication;
+import com.magalutest.schedulingcore.exception.SendDateInvalid;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.orm.jpa.JpaObjectRetrievalFailureException;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
+
+import java.text.MessageFormat;
+import java.util.HashMap;
+import java.util.Map;
 
 @Slf4j
 @RestControllerAdvice
@@ -47,11 +57,14 @@ public class RestAdvice {
     }
 
     @ExceptionHandler(DataIntegrityViolationException.class)
-    @ResponseStatus(HttpStatus.CONFLICT)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     public MessageError dataIntegrityViolationException(final DataIntegrityViolationException dataIntegrityViolationException) throws Exception {
         if(dataIntegrityViolationException.getMessage().contains("constraint [null]")) {
-            log.info(dataIntegrityViolationException.getMessage());
-            throw new OneOrMoreParametersWereIncorrectly();
+            return MessageError.builder()
+                    .error("Bad request")
+                    .message("One or more parameters were incorrectly specified, are mutually exclusive.")
+                    .code(1002)
+                    .build();
         }
         throw new Exception();
     }
@@ -83,6 +96,67 @@ public class RestAdvice {
                 .error("Bad request")
                 .message("One or more parameters were incorrectly specified, are mutually exclusive.")
                 .code(1002)
+                .build();
+    }
+
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public MessageError httpMessageNotReadableException(final HttpMessageNotReadableException httpMessageNotReadableException) {
+        return MessageError.builder()
+                .error("Bad request")
+                .message("One or more parameters were incorrectly specified, are mutually exclusive.")
+                .code(1002)
+                .build();
+    }
+
+    @ExceptionHandler(SendDateInvalid.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public MessageError sendDateInvalid(final SendDateInvalid sendDateInvalid) {
+        return MessageError.builder()
+                .error("Bad request")
+                .message("Send parameter is incorrectly specified. Shipping date has expired.")
+                .code(1003)
+                .build();
+    }
+
+    @ExceptionHandler(ReceiverNotContainValidMeansCommunication.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public MessageError receiverNotContainValidMeansCommunication(final ReceiverNotContainValidMeansCommunication receiverNotContainValidMeansCommunication) {
+        return MessageError.builder()
+                .error("Bad request")
+                .message("Receiver does not contain valid means of communication.")
+                .code(1004)
+                .build();
+    }
+
+    @ExceptionHandler(MethodArgumentTypeMismatchException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public MessageError methodArgumentTypeMismatchException(final MethodArgumentTypeMismatchException methodArgumentTypeMismatchException) {
+        if(methodArgumentTypeMismatchException.getCause().getMessage().contains("Invalid UUID string:")) {
+            return MessageError.builder()
+                    .error("Bad request")
+                    .message("UUID parameter is incorrectly specified.")
+                    .code(1005)
+                    .build();
+        } else {
+            return exception(null);
+        }
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public MessageError methodArgumentNotValidException(final MethodArgumentNotValidException methodArgumentNotValidException) {
+        final Map<String, String> errors = new HashMap<>();
+        methodArgumentNotValidException.getBindingResult().getAllErrors().forEach((error) -> {
+            final var fieldName = ((FieldError) error).getField();
+            final var errorMessage = error.getDefaultMessage();
+            errors.put(fieldName, errorMessage);
+        });
+
+        return MessageError.builder()
+                .error("Bad request")
+                .message(MessageFormat.format("One or more parameters were incorrectly specified, are mutually exclusive. {0}", errors))
+                .code(1006)
                 .build();
     }
 }

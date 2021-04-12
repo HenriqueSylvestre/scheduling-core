@@ -6,7 +6,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.time.ZonedDateTime;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Getter
@@ -19,7 +19,7 @@ public class SchedulingRequestDTO implements Serializable {
     private static final long serialVersionUID = -834958310503210681L;
 
     @NotNull
-    private ZonedDateTime send;
+    private LocalDateTime send;
 
     @NotBlank
     @NotNull

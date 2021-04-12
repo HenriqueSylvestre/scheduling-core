@@ -3,7 +3,7 @@ package com.magalutest.schedulingcore.controller.dto;
 import lombok.*;
 
 import java.io.Serializable;
-import java.time.ZonedDateTime;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Getter
@@ -16,7 +16,7 @@ public class SchedulingResponseDTO implements Serializable {
 
     private static final long serialVersionUID = -2051426503766976485L;
     private UUID uuid;
-    private ZonedDateTime send;
+    private LocalDateTime send;
     private String message;
     private Receiver receiver;
     private SchedulingType schedulingEmail;
@@ -49,7 +49,7 @@ public class SchedulingResponseDTO implements Serializable {
     public static class SchedulingType implements Serializable {
         private static final long serialVersionUID = 2901307603872833341L;
         private UUID uuid;
-        private ZonedDateTime sended;
+        private LocalDateTime sended;
         private Status status;
     }
 

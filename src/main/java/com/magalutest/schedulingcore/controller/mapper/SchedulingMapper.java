@@ -132,6 +132,7 @@ public class SchedulingMapper {
                         .name(receiver.getName())
                         .email(receiver.getEmail())
                         .phone(receiver.getPush())
+                        .push(receiver.getPush())
                         .whatsapp(receiver.isWhatsapp())
                         .build())
                 .orElse(null);

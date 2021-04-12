@@ -3,7 +3,7 @@ package com.magalutest.schedulingcore.model;
 import lombok.*;
 
 import javax.persistence.*;
-import java.time.ZonedDateTime;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Getter
@@ -21,26 +21,26 @@ public class Scheduling {
     @org.hibernate.annotations.Type(type = "uuid-char")
     private UUID uuid;
 
-    private ZonedDateTime send;
+    private LocalDateTime send;
     private String message;
 
     @ManyToOne
     @JoinColumn(name = "customer_uuid")
     private Customer receiver;
 
-    @OneToOne
+    @OneToOne(cascade={CascadeType.PERSIST, CascadeType.REMOVE})
     @JoinColumn(name = "scheduling_email_uuid")
     private SchedulingEmail schedulingEmail;
 
-    @OneToOne
+    @OneToOne(cascade={CascadeType.PERSIST, CascadeType.REMOVE})
     @JoinColumn(name = "scheduling_sms_uuid")
     private SchedulingSms schedulingSms;
 
-    @OneToOne
+    @OneToOne(cascade={CascadeType.PERSIST, CascadeType.REMOVE})
     @JoinColumn(name = "scheduling_push_uuid")
     private SchedulingPush schedulingPush;
 
-    @OneToOne
+    @OneToOne(cascade={CascadeType.PERSIST, CascadeType.REMOVE})
     @JoinColumn(name = "scheduling_whatsapp_uuid")
     private SchedulingWhatsapp schedulingWhatsapp;
 }

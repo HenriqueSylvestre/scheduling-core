@@ -13,7 +13,9 @@ public abstract class AbstractController {
                 .build());
     }
 
-    public <T> ResponseEntity build(final HttpStatus httpStatus) {
-        return (ResponseEntity) ResponseEntity.status(httpStatus);
+    public <T> ResponseEntity<Response> build(final HttpStatus httpStatus) {
+        return ResponseEntity.status(httpStatus).body(Response.builder()
+                .data(null)
+                .build());
     }
 }

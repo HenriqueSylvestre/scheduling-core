@@ -3,7 +3,7 @@ package com.magalutest.schedulingcore.model;
 import lombok.*;
 
 import javax.persistence.*;
-import java.time.ZonedDateTime;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Getter
@@ -21,7 +21,7 @@ public class SchedulingWhatsapp {
     @org.hibernate.annotations.Type(type = "uuid-char")
     private UUID uuid;
 
-    private ZonedDateTime sended;
+    private LocalDateTime sended;
 
     @ManyToOne
     @JoinColumn(name = "status_id")
