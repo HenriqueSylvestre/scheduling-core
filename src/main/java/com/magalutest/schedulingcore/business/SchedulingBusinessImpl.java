@@ -38,8 +38,6 @@ public class SchedulingBusinessImpl implements SchedulingBusiness{
         return schedulingRepository.save(scheduling);
     }
 
-
-
     @Override
     public Scheduling findByUuid(@NonNull final UUID uuid) {
         return schedulingRepository.findById(uuid)
@@ -51,13 +49,13 @@ public class SchedulingBusinessImpl implements SchedulingBusiness{
         schedulingRepository.deleteById(uuid);
     }
 
-    private void validateReceiver(Scheduling scheduling) {
+    protected void validateReceiver(Scheduling scheduling) {
         var customer = customerRepository.findById(scheduling.getReceiver().getUuid())
                 .orElseThrow(() -> new NotFoundException());
         scheduling.setReceiver(customer);
     }
 
-    private void validateSend(final LocalDateTime send) {
+    protected void validateSend(final LocalDateTime send) {
         if(send != null) {
             if(send.isBefore(LocalDateTime.now())) {
                 throw new SendDateInvalid();
@@ -65,14 +63,14 @@ public class SchedulingBusinessImpl implements SchedulingBusiness{
         }
     }
 
-    private void validateExistAnyScheduling(Scheduling scheduling) {
+    protected void validateExistAnyScheduling(Scheduling scheduling) {
         if(!(scheduling.getSchedulingEmail() != null || scheduling.getSchedulingEmail() != null
                 || scheduling.getSchedulingEmail() != null || scheduling.getSchedulingEmail() != null)) {
             throw new ReceiverNotContainValidMeansCommunication();
         }
     }
 
-    private void scheduleEmail(Scheduling scheduling) {
+    protected void scheduleEmail(Scheduling scheduling) {
         if(scheduling.getReceiver().getEmail() != null && !scheduling.getReceiver().getEmail().isEmpty()) {
             scheduling.setSchedulingEmail(SchedulingEmail.builder()
                     .status(Status.builder()
@@ -82,7 +80,7 @@ public class SchedulingBusinessImpl implements SchedulingBusiness{
         }
     }
 
-    private void scheduleSms(Scheduling scheduling) {
+    protected void scheduleSms(Scheduling scheduling) {
         if(scheduling.getReceiver().getPhone() != null && !scheduling.getReceiver().getPhone().isEmpty()) {
             scheduling.setSchedulingSms(SchedulingSms.builder()
                     .status(Status.builder()
@@ -93,7 +91,7 @@ public class SchedulingBusinessImpl implements SchedulingBusiness{
         }
     }
 
-    private void schedulePush(Scheduling scheduling) {
+    protected void schedulePush(Scheduling scheduling) {
         if(scheduling.getReceiver().getPush() != null && !scheduling.getReceiver().getPush().isEmpty()) {
             scheduling.setSchedulingPush(SchedulingPush.builder()
                     .status(Status.builder()
@@ -103,7 +101,7 @@ public class SchedulingBusinessImpl implements SchedulingBusiness{
         }
     }
 
-    private void scheduleWhatsapp(Scheduling scheduling) {
+    protected void scheduleWhatsapp(Scheduling scheduling) {
         if(scheduling.getReceiver().isWhatsapp() && scheduling.getReceiver().getPhone() != null && !scheduling.getReceiver().getPhone().isEmpty()) {
             scheduling.setSchedulingWhatsapp(SchedulingWhatsapp.builder()
                     .status(Status.builder()

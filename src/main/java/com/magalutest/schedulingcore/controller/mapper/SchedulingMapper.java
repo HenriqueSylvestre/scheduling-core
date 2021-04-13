@@ -131,7 +131,7 @@ public class SchedulingMapper {
                         .uuid(receiver.getUuid())
                         .name(receiver.getName())
                         .email(receiver.getEmail())
-                        .phone(receiver.getPush())
+                        .phone(receiver.getPhone())
                         .push(receiver.getPush())
                         .whatsapp(receiver.isWhatsapp())
                         .build())
