@@ -49,7 +49,7 @@ public class SchedulingMapper {
                 .build();
     }
 
-    private SchedulingResponseDTO.SchedulingType getSchedulingType(SchedulingEmail  schedulingEmail) {
+    protected SchedulingResponseDTO.SchedulingType getSchedulingType(final SchedulingEmail  schedulingEmail) {
         return SchedulingResponseDTO.SchedulingType.builder()
                 .uuid(schedulingEmail.getUuid())
                 .sended(schedulingEmail.getSended())
@@ -62,7 +62,7 @@ public class SchedulingMapper {
                 .build();
     }
 
-    private SchedulingResponseDTO.SchedulingType getSchedulingType(SchedulingSms  schedulingSms) {
+    protected SchedulingResponseDTO.SchedulingType getSchedulingType(final SchedulingSms  schedulingSms) {
         return SchedulingResponseDTO.SchedulingType.builder()
                 .uuid(schedulingSms.getUuid())
                 .sended(schedulingSms.getSended())
@@ -75,7 +75,7 @@ public class SchedulingMapper {
                 .build();
     }
 
-    private SchedulingResponseDTO.SchedulingType getSchedulingType(SchedulingPush  schedulingPush) {
+    protected SchedulingResponseDTO.SchedulingType getSchedulingType(final SchedulingPush  schedulingPush) {
         return SchedulingResponseDTO.SchedulingType.builder()
                 .uuid(schedulingPush.getUuid())
                 .sended(schedulingPush.getSended())
@@ -88,7 +88,7 @@ public class SchedulingMapper {
                 .build();
     }
 
-    private SchedulingResponseDTO.SchedulingType getSchedulingType(SchedulingWhatsapp  schedulingWhatsapp) {
+    protected SchedulingResponseDTO.SchedulingType getSchedulingType(final SchedulingWhatsapp  schedulingWhatsapp) {
         return SchedulingResponseDTO.SchedulingType.builder()
                 .uuid(schedulingWhatsapp.getUuid())
                 .sended(schedulingWhatsapp.getSended())
@@ -101,31 +101,31 @@ public class SchedulingMapper {
                 .build();
     }
 
-    private SchedulingResponseDTO.SchedulingType getSchedulingWhatsapp(final SchedulingWhatsapp scheduling) {
+    protected SchedulingResponseDTO.SchedulingType getSchedulingWhatsapp(final SchedulingWhatsapp scheduling) {
         return Optional.ofNullable(scheduling)
                 .map(schedulingWhatsapp -> getSchedulingType(schedulingWhatsapp))
                 .orElse(null);
     }
 
-    private SchedulingResponseDTO.SchedulingType getSchedulingPush(final SchedulingPush scheduling) {
+    protected SchedulingResponseDTO.SchedulingType getSchedulingPush(final SchedulingPush scheduling) {
         return Optional.ofNullable(scheduling)
                 .map(schedulingPush -> getSchedulingType(schedulingPush))
                 .orElse(null);
     }
 
-    private SchedulingResponseDTO.SchedulingType getSchedulingSms(final SchedulingSms scheduling) {
+    protected SchedulingResponseDTO.SchedulingType getSchedulingSms(final SchedulingSms scheduling) {
         return Optional.ofNullable(scheduling)
                 .map(schedulingSms -> getSchedulingType(schedulingSms))
                 .orElse(null);
     }
 
-    private SchedulingResponseDTO.SchedulingType getSchedulingEmail(final SchedulingEmail scheduling) {
+    protected SchedulingResponseDTO.SchedulingType getSchedulingEmail(final SchedulingEmail scheduling) {
         return Optional.ofNullable(scheduling)
                 .map(schedulingEmail -> getSchedulingType(schedulingEmail))
                 .orElse(null);
     }
 
-    private SchedulingResponseDTO.Receiver getReceiver(final Customer customer) {
+    protected SchedulingResponseDTO.Receiver getReceiver(final Customer customer) {
         return Optional.ofNullable(customer)
                 .map(receiver -> SchedulingResponseDTO.Receiver.builder()
                         .uuid(receiver.getUuid())

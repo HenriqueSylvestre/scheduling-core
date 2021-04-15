@@ -11,16 +11,16 @@ spring:
     hibernate:
       ddl-auto: none
   datasource:
-    url: ${MAGALUSCHEDULING_DATASOURCE_URL}
-    username: ${MAGALUSCHEDULING_DATASOURCE_NAME}
-    password: ${MAGALUSCHEDULING_DATASOURCE_PASSWORD}
+    url: ${MAGALUSCHEDULING_DATASOURCE_URL:jdbc:mysql://localhost:3307/magaluscheduling}
+    username: ${MAGALUSCHEDULING_DATASOURCE_NAME:magaluscheduling}
+    password: ${MAGALUSCHEDULING_DATASOURCE_PASSWORD:magaluscheduling}
   jackson:
     default-property-inclusion: non_null
 
 flyway:
-  user: ${MAGALUSCHEDULING_DATASOURCE_NAME}
-  password: ${MAGALUSCHEDULING_DATASOURCE_PASSWORD}
-  schemas: ${MAGALUSCHEDULING_DATASOURCE_SCHEMA}
+  user: ${MAGALUSCHEDULING_DATASOURCE_NAME:magaluscheduling}
+  password: ${MAGALUSCHEDULING_DATASOURCE_PASSWORD:magaluscheduling}
+  schemas: ${MAGALUSCHEDULING_DATASOURCE_SCHEMA:magaluscheduling}
 
 hibernate:
   globally_quoted_identifiers: true

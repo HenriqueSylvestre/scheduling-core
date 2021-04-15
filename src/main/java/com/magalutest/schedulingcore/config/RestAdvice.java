@@ -32,7 +32,6 @@ public class RestAdvice {
         return MessageError.builder()
                 .error("Internal server error")
                 .message("Was encountered an error when processing your request. We apologize for the inconvenience.")
-                .code(1000)
                 .build();
     }
 
@@ -42,7 +41,6 @@ public class RestAdvice {
         return MessageError.builder()
                 .error("Register not found")
                 .message("The requested resource could not be found.")
-                .code(1001)
                 .build();
     }
 
@@ -52,7 +50,6 @@ public class RestAdvice {
         return MessageError.builder()
                 .error("Register not found")
                 .message("The requested resource could not be found.")
-                .code(1001)
                 .build();
     }
 
@@ -63,7 +60,6 @@ public class RestAdvice {
             return MessageError.builder()
                     .error("Bad request")
                     .message("One or more parameters were incorrectly specified, are mutually exclusive.")
-                    .code(1002)
                     .build();
         }
         throw new Exception();
@@ -75,7 +71,6 @@ public class RestAdvice {
         return MessageError.builder()
                 .error("Bad request")
                 .message("One or more parameters were incorrectly specified, are mutually exclusive.")
-                .code(1002)
                 .build();
     }
 
@@ -85,7 +80,6 @@ public class RestAdvice {
         return MessageError.builder()
                 .error("Bad request")
                 .message("One or more parameters were incorrectly specified, are mutually exclusive.")
-                .code(1002)
                 .build();
     }
 
@@ -95,7 +89,6 @@ public class RestAdvice {
         return MessageError.builder()
                 .error("Bad request")
                 .message("One or more parameters were incorrectly specified, are mutually exclusive.")
-                .code(1002)
                 .build();
     }
 
@@ -105,7 +98,6 @@ public class RestAdvice {
         return MessageError.builder()
                 .error("Bad request")
                 .message("One or more parameters were incorrectly specified, are mutually exclusive.")
-                .code(1002)
                 .build();
     }
 
@@ -115,7 +107,6 @@ public class RestAdvice {
         return MessageError.builder()
                 .error("Bad request")
                 .message("Send parameter is incorrectly specified. Shipping date has expired.")
-                .code(1003)
                 .build();
     }
 
@@ -125,38 +116,24 @@ public class RestAdvice {
         return MessageError.builder()
                 .error("Bad request")
                 .message("Receiver does not contain valid means of communication.")
-                .code(1004)
                 .build();
     }
 
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public MessageError methodArgumentTypeMismatchException(final MethodArgumentTypeMismatchException methodArgumentTypeMismatchException) {
-        if(methodArgumentTypeMismatchException.getCause().getMessage().contains("Invalid UUID string:")) {
-            return MessageError.builder()
-                    .error("Bad request")
-                    .message("UUID parameter is incorrectly specified.")
-                    .code(1005)
-                    .build();
-        } else {
-            return exception(null);
-        }
+    public MessageError methodArgumentTypeMismatchException() {
+        return MessageError.builder()
+                .error("Bad request")
+                .message("One or more parameters were incorrectly specified, are mutually exclusive.")
+                .build();
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public MessageError methodArgumentNotValidException(final MethodArgumentNotValidException methodArgumentNotValidException) {
-        final Map<String, String> errors = new HashMap<>();
-        methodArgumentNotValidException.getBindingResult().getAllErrors().forEach((error) -> {
-            final var fieldName = ((FieldError) error).getField();
-            final var errorMessage = error.getDefaultMessage();
-            errors.put(fieldName, errorMessage);
-        });
-
+    public MessageError methodArgumentNotValidException() {
         return MessageError.builder()
                 .error("Bad request")
-                .message(MessageFormat.format("One or more parameters were incorrectly specified, are mutually exclusive. {0}", errors))
-                .code(1006)
+                .message("One or more parameters were incorrectly specified, are mutually exclusive.")
                 .build();
     }
 }

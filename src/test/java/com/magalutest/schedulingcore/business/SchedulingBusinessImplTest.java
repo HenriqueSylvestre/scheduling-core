@@ -91,7 +91,7 @@ class SchedulingBusinessImplTest {
             .build();
 
     @InjectMocks
-    SchedulingBusinessImpl schedulingBusinessImpl;
+    private SchedulingBusinessImpl schedulingBusinessImpl;
 
     @Mock
     SchedulingRepository schedulingRepository;
@@ -154,14 +154,6 @@ class SchedulingBusinessImplTest {
         schedulingBusinessImpl.deleteByUuid(schedulingPersisted.getUuid());
         verify(schedulingRepository).deleteById(schedulingPersisted.getUuid());
     }
-
-//    @Test
-//    void deleteByUuidThrowEmptyResultDataAccessException() {
-//        Assertions.assertThrows(EmptyResultDataAccessException.class, () -> {
-//            when(schedulingRepository.deleteById(uuidScheduling)).thenThrow(EmptyResultDataAccessException.class);
-//            schedulingBusinessImpl.deleteByUuid(uuidScheduling);
-//        });
-//    }
 
     @Test
     void validateReceiverSuccess() {
