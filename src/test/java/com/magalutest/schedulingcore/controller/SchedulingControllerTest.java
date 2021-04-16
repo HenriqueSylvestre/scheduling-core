@@ -1,10 +1,7 @@
 package com.magalutest.schedulingcore.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.magalutest.schedulingcore.config.MessageError;
-import com.magalutest.schedulingcore.controller.dto.SchedulingRequestDTO;
-import com.magalutest.schedulingcore.controller.dto.SchedulingResponseDTO;
-import com.magalutest.schedulingcore.controller.dto.SchedulingTypesStatusResponseDTO;
+import com.magalutest.schedulingcore.controller.dto.*;
 import org.junit.jupiter.api.*;
 
 import java.time.LocalDateTime;
@@ -15,17 +12,11 @@ import static io.restassured.RestAssured.given;
 class SchedulingControllerTest {
 
     private static final String URL = "http://localhost:8080/schedules";
-    private final UUID uuidReceiver = UUID.fromString("7c66f8b7-7de1-47d4-a569-46293b730ab8");
-    private final SchedulingRequestDTO schedulingRequestDTO = SchedulingRequestDTO.builder()
-            .send(LocalDateTime.now().plusMonths(1))
-            .message("Reuniao daqui um mes as 09h00")
-            .receiver(SchedulingRequestDTO.Receiver.builder()
-                    .uuid(uuidReceiver)
-                    .build())
-            .build();
+    private static final String URL_CUSTOMERS = "http://localhost:8080/customers";
+    private UUID uuidReceiver;
 
     private UUID createScheduling() {
-        final var responseDTO = given().contentType("application/json").body(schedulingRequestDTO)
+        final var responseDTO = given().contentType("application/json").body(createSchedulingRequestDTO())
                 .when().post(URL)
                 .then().statusCode(201).extract().jsonPath().getList("data", SchedulingResponseDTO.class);
         return responseDTO.get(0).getUuid();
@@ -37,9 +28,40 @@ class SchedulingControllerTest {
                 .then().statusCode(204);
     }
 
+    private SchedulingRequestDTO createSchedulingRequestDTO() {
+        var customerResponseDTO = createCustomer();
+        return SchedulingRequestDTO.builder()
+                .send(LocalDateTime.now().plusMonths(1))
+                .message("Reuniao daqui um mes as 09h00")
+                .receiver(SchedulingRequestDTO.Receiver.builder()
+                        .uuid(customerResponseDTO.getUuid())
+                        .build())
+                .build();
+    }
+
+    private CustomerResponseDTO createCustomer() {
+        final var responseDTO = given().contentType("application/json").body(CustomerRequestDTO.builder()
+                    .name("Jose Marques da Silveira")
+                    .email("josemsilveira123@gmail.com")
+                    .phone("9999981778430")
+                    .push("c8c95452-a827-4458-bee9-8852715b6795")
+                    .whatsapp(false)
+                    .build())
+                .when().post(URL_CUSTOMERS)
+                .then().statusCode(201).extract().jsonPath().getList("data", CustomerResponseDTO.class);
+        uuidReceiver = responseDTO.get(0).getUuid();
+        return responseDTO.get(0);
+    }
+
+    private void deleteCustomer(UUID uuid) {
+        given().contentType("application/json").pathParam("uuid", uuid)
+                .when().delete(URL_CUSTOMERS + "/{uuid}")
+                .then().statusCode(204);
+    }
+
     @Test
-    void create() throws JsonProcessingException {
-        final var responseDTO = given().contentType("application/json").body(schedulingRequestDTO)
+    void create() {
+        final var responseDTO = given().contentType("application/json").body(createSchedulingRequestDTO())
             .when().post(URL)
             .then().statusCode(201).extract().jsonPath().getList("data", SchedulingResponseDTO.class);
 
@@ -49,6 +71,7 @@ class SchedulingControllerTest {
         Assertions.assertEquals(uuidReceiver, responseDTO.get(0).getReceiver().getUuid());
 
         deleteScheduling(responseDTO.get(0).getUuid());
+        deleteCustomer(uuidReceiver);
     }
 
     @Test
@@ -63,6 +86,7 @@ class SchedulingControllerTest {
         Assertions.assertEquals(schedulingUuidCreated, responseDTO.get(0).getUuid());
 
         deleteScheduling(responseDTO.get(0).getUuid());
+        deleteCustomer(uuidReceiver);
     }
 
     @Test
@@ -88,6 +112,7 @@ class SchedulingControllerTest {
         Assertions.assertEquals(schedulingUuidCreated, responseDTO.get(0).getUuid());
 
         deleteScheduling(responseDTO.get(0).getUuid());
+        deleteCustomer(uuidReceiver);
     }
 
     @Test
@@ -107,5 +132,6 @@ class SchedulingControllerTest {
         given().contentType("application/json").pathParam("uuid", schedulingUuidCreated)
                 .when().delete(URL+"/{uuid}")
                 .then().statusCode(204);
+        deleteCustomer(uuidReceiver);
     }
 }

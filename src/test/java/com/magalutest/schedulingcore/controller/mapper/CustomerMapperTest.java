@@ -1,15 +1,12 @@
 package com.magalutest.schedulingcore.controller.mapper;
 
 import com.magalutest.schedulingcore.controller.dto.CustomerRequestDTO;
-import com.magalutest.schedulingcore.controller.dto.CustomerResponseDTO;
 import com.magalutest.schedulingcore.model.Customer;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(SpringExtension.class)
 class CustomerMapperTest {
