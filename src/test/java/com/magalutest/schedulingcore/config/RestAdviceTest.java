@@ -50,19 +50,39 @@ class RestAdviceTest {
 
     @Test
     @SneakyThrows
-    void dataIntegrityViolationException() {
+    void dataIntegrityViolationExceptionConstraintNull() {
         var messageError = restAdvice.dataIntegrityViolationException(new DataIntegrityViolationException("constraint [null]"));
 
         Assertions.assertEquals("Bad request", messageError.getError());
         Assertions.assertEquals("One or more parameters were incorrectly specified, are mutually exclusive.", messageError.getMessage());
     }
 
+
     @Test
-    void dataIntegrityViolationExceptionThrowException() {
-        Assertions.assertThrows(Exception.class, () -> {
-            when(restAdvice.dataIntegrityViolationException(new DataIntegrityViolationException(""))).thenThrow(Exception.class);
-            restAdvice.dataIntegrityViolationException(new DataIntegrityViolationException(""));
-        });
+    @SneakyThrows
+    void dataIntegrityViolationExceptionRegisterEmailDuplicated() {
+        var messageError = restAdvice.dataIntegrityViolationException(new DataIntegrityViolationException("constraint [customer.email]"));
+
+        Assertions.assertEquals("Bad request", messageError.getError());
+        Assertions.assertTrue(messageError.getMessage().contains("Register duplicated - customer.email"));
+    }
+
+    @Test
+    @SneakyThrows
+    void dataIntegrityViolationExceptionRegisterPhoneDuplicated() {
+        var messageError = restAdvice.dataIntegrityViolationException(new DataIntegrityViolationException("constraint [customer.phone]"));
+
+        Assertions.assertEquals("Bad request", messageError.getError());
+        Assertions.assertTrue(messageError.getMessage().contains("Register duplicated - customer.phone"));
+    }
+
+    @Test
+    @SneakyThrows
+    void dataIntegrityViolationExceptionRegisterPushDuplicated() {
+        var messageError = restAdvice.dataIntegrityViolationException(new DataIntegrityViolationException("constraint [customer.push]"));
+
+        Assertions.assertEquals("Bad request", messageError.getError());
+        Assertions.assertTrue(messageError.getMessage().contains("Register duplicated - customer.push"));
     }
 
     @Test

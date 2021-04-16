@@ -7,6 +7,7 @@ import com.magalutest.schedulingcore.model.*;
 import com.magalutest.schedulingcore.repository.CustomerRepository;
 import com.magalutest.schedulingcore.repository.SchedulingRepository;
 import lombok.NonNull;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -18,6 +19,7 @@ public class SchedulingBusinessImpl implements SchedulingBusiness{
     private final SchedulingRepository schedulingRepository;
     private final CustomerRepository customerRepository;
 
+    @Autowired
     public SchedulingBusinessImpl(final SchedulingRepository schedulingRepository, final CustomerRepository customerRepository) {
         this.schedulingRepository = schedulingRepository;
         this.customerRepository = customerRepository;

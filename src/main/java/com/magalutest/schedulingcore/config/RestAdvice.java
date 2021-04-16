@@ -11,7 +11,6 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.orm.jpa.JpaObjectRetrievalFailureException;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -19,8 +18,6 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import java.text.MessageFormat;
-import java.util.HashMap;
-import java.util.Map;
 
 @Slf4j
 @RestControllerAdvice
@@ -61,6 +58,15 @@ public class RestAdvice {
                     .error("Bad request")
                     .message("One or more parameters were incorrectly specified, are mutually exclusive.")
                     .build();
+        } else if(dataIntegrityViolationException.getMessage().contains("constraint [customer.")) {
+            final var startIndex = dataIntegrityViolationException.getMessage().lastIndexOf("[");
+            final var endIndex = dataIntegrityViolationException.getMessage().lastIndexOf("]");
+            final var field = dataIntegrityViolationException.getMessage().substring(startIndex+1, endIndex);
+            return MessageError.builder()
+                    .error("Bad request")
+                    .message(MessageFormat.format("Register duplicated - {0}", field))
+                    .build();
+
         }
         throw new Exception();
     }

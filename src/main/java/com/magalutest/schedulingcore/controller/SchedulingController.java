@@ -27,19 +27,19 @@ public class SchedulingController extends AbstractController{
 
     @PostMapping
     public ResponseEntity<Response> create(@RequestBody @Valid final SchedulingRequestDTO requestDTO) {
-        var scheduling = schedulingBusiness.create(schedulingMapper.mapper(requestDTO));
+        final var scheduling = schedulingBusiness.create(schedulingMapper.mapper(requestDTO));
         return super.build(HttpStatus.CREATED, schedulingMapper.mapper(scheduling));
     }
 
     @GetMapping(path = "/{uuid}")
     public ResponseEntity<Response> find(@PathVariable(value = "uuid") final UUID uuid) {
-        var scheduling = schedulingBusiness.findByUuid(uuid);
+        final var scheduling = schedulingBusiness.findByUuid(uuid);
         return super.build(HttpStatus.OK, schedulingMapper.mapper(scheduling));
     }
 
     @GetMapping(path = "/{uuid}/status")
     public ResponseEntity<Response> findStatus(@PathVariable(value = "uuid") final UUID uuid) {
-        var scheduling = schedulingBusiness.findByUuid(uuid);
+        final var scheduling = schedulingBusiness.findByUuid(uuid);
         return super.build(HttpStatus.OK, schedulingMapper.mapperStatus(scheduling));
     }
 
@@ -47,6 +47,5 @@ public class SchedulingController extends AbstractController{
     public ResponseEntity<Response> delete(@PathVariable(value = "uuid") final UUID uuid) {
         schedulingBusiness.deleteByUuid(uuid);
         return super.build(HttpStatus.NO_CONTENT);
-
     }
 }
