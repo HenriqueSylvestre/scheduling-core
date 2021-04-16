@@ -45,6 +45,12 @@ este outro endpoint.
 - Agendamento de envio de comunicação
 - Consulta de agendamento de envio de comunicação
 - Exclusão de agendamento de envio de comunicação
+- Cadastro de clientes
+- Consulta de clientes
+- Exclusão de clientes
+- Cadastro de tipo de status de agendamento
+- Consulta de tipo de statos de agendamento 
+- Exclusão de tipo de statos de agendamento
 
 ### Pré-requisitos
 
@@ -66,6 +72,8 @@ $ docker-compose up -d
 # Consulte os container do docker em execução
 $ docker ps
 
+#Execute a aplicação da forma que desejar. Como por exemplo: usando uma IDE de desenvolvimento como IntelliJ IDEA Community
+
 # O servidor iniciará na porta:8080 - acesse <http://localhost:8080>
 ```
 
@@ -80,6 +88,8 @@ As seguintes ferramentas foram usadas na construção do projeto:
 - [Docker Compose](https://docs.docker.com/compose/)
 - [IntelliJ IDEA](https://www.jetbrains.com/pt-br/)
 - [Tomcat](http://tomcat.apache.org/)
+- [Junit5](https://junit.org/junit5/)
+- [RestAssured](https://rest-assured.io/)
 
 ### Autor
 
