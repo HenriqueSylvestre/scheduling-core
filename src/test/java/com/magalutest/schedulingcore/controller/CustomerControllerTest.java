@@ -21,7 +21,7 @@ import static io.restassured.RestAssured.given;
 @ExtendWith(SpringExtension.class)
 class CustomerControllerTest {
 
-    private static final String URL = "/customers";
+    private static final String URL = "http://localhost:8080/customers";
     final String phone = "5516981778430";
     final CustomerRequestDTO customerRequestDTO = CustomerRequestDTO.builder()
             .name("Jose Marques da Silveira")

@@ -19,8 +19,8 @@ import static io.restassured.RestAssured.given;
 @ExtendWith(SpringExtension.class)
 class SchedulingControllerTest {
 
-    private static final String URL = "/schedules";
-    private static final String URL_CUSTOMERS = "/customers";
+    private static final String URL = "http://localhost:8080/schedules";
+    private static final String URL_CUSTOMERS = "http://localhost:8080/customers";
     private UUID uuidReceiver;
 
     private UUID createScheduling() {

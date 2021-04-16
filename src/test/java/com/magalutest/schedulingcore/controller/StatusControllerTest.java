@@ -18,7 +18,7 @@ import static io.restassured.RestAssured.given;
 @ExtendWith(SpringExtension.class)
 class StatusControllerTest {
 
-    private static final String URL = "/status";
+    private static final String URL = "http://localhost:8080/status";
     final StatusRequestDTO statusRequestDTO = StatusRequestDTO.builder()
             .name("Teste")
             .build();
