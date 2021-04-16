@@ -18,8 +18,6 @@ import org.springframework.orm.jpa.JpaObjectRetrievalFailureException;
 import javax.persistence.EntityNotFoundException;
 import java.sql.SQLException;
 
-import static org.mockito.Mockito.when;
-
 class RestAdviceTest {
 
     private RestAdvice restAdvice = new RestAdvice();
@@ -60,7 +58,7 @@ class RestAdviceTest {
 
     @Test
     @SneakyThrows
-    void dataIntegrityViolationExceptionRegisterEmailDuplicated() {
+    void dataIntegrityViolationExceptionRegisterCustomerEmailDuplicated() {
         var messageError = restAdvice.dataIntegrityViolationException(new DataIntegrityViolationException("constraint [customer.email]"));
 
         Assertions.assertEquals("Bad request", messageError.getError());
@@ -69,7 +67,7 @@ class RestAdviceTest {
 
     @Test
     @SneakyThrows
-    void dataIntegrityViolationExceptionRegisterPhoneDuplicated() {
+    void dataIntegrityViolationExceptionRegisterCustomerPhoneDuplicated() {
         var messageError = restAdvice.dataIntegrityViolationException(new DataIntegrityViolationException("constraint [customer.phone]"));
 
         Assertions.assertEquals("Bad request", messageError.getError());
@@ -78,11 +76,20 @@ class RestAdviceTest {
 
     @Test
     @SneakyThrows
-    void dataIntegrityViolationExceptionRegisterPushDuplicated() {
+    void dataIntegrityViolationExceptionRegisterCustomerPushDuplicated() {
         var messageError = restAdvice.dataIntegrityViolationException(new DataIntegrityViolationException("constraint [customer.push]"));
 
         Assertions.assertEquals("Bad request", messageError.getError());
         Assertions.assertTrue(messageError.getMessage().contains("Register duplicated - customer.push"));
+    }
+
+    @Test
+    @SneakyThrows
+    void dataIntegrityViolationExceptionRegisterStatusNameDuplicated() {
+        var messageError = restAdvice.dataIntegrityViolationException(new DataIntegrityViolationException("constraint [status.name]"));
+
+        Assertions.assertEquals("Bad request", messageError.getError());
+        Assertions.assertTrue(messageError.getMessage().contains("Register duplicated - status.name"));
     }
 
     @Test

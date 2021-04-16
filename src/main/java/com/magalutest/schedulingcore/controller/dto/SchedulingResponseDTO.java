@@ -61,7 +61,7 @@ public class SchedulingResponseDTO implements Serializable {
     @Builder
     public static class Status implements Serializable {
         private static final long serialVersionUID = -6817103066163591863L;
-        private int id;
+        private long id;
         private String name;
     }
 }

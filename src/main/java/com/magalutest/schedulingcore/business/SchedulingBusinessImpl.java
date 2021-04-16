@@ -76,7 +76,7 @@ public class SchedulingBusinessImpl implements SchedulingBusiness{
         if(scheduling.getReceiver().getEmail() != null && !scheduling.getReceiver().getEmail().isEmpty()) {
             scheduling.setSchedulingEmail(SchedulingEmail.builder()
                     .status(Status.builder()
-                            .id(1)
+                            .id(1L)
                             .build())
                     .build());
         }
@@ -86,7 +86,7 @@ public class SchedulingBusinessImpl implements SchedulingBusiness{
         if(scheduling.getReceiver().getPhone() != null && !scheduling.getReceiver().getPhone().isEmpty()) {
             scheduling.setSchedulingSms(SchedulingSms.builder()
                     .status(Status.builder()
-                            .id(1)
+                            .id(1L)
                             .build())
                     .build());
 
@@ -97,7 +97,7 @@ public class SchedulingBusinessImpl implements SchedulingBusiness{
         if(scheduling.getReceiver().getPush() != null && !scheduling.getReceiver().getPush().isEmpty()) {
             scheduling.setSchedulingPush(SchedulingPush.builder()
                     .status(Status.builder()
-                            .id(1)
+                            .id(1L)
                             .build())
                     .build());
         }
@@ -107,7 +107,7 @@ public class SchedulingBusinessImpl implements SchedulingBusiness{
         if(scheduling.getReceiver().isWhatsapp() && scheduling.getReceiver().getPhone() != null && !scheduling.getReceiver().getPhone().isEmpty()) {
             scheduling.setSchedulingWhatsapp(SchedulingWhatsapp.builder()
                     .status(Status.builder()
-                            .id(1)
+                            .id(1L)
                             .build())
                     .build());
         }

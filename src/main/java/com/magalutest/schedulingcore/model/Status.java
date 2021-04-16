@@ -15,8 +15,8 @@ import javax.validation.constraints.Size;
 public class Status {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
 
     @Size(max = 45)
     private String name;

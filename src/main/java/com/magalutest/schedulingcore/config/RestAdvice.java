@@ -67,6 +67,14 @@ public class RestAdvice {
                     .message(MessageFormat.format("Register duplicated - {0}", field))
                     .build();
 
+        } else if(dataIntegrityViolationException.getMessage().contains("constraint [status.")) {
+            final var startIndex = dataIntegrityViolationException.getMessage().lastIndexOf("[");
+            final var endIndex = dataIntegrityViolationException.getMessage().lastIndexOf("]");
+            final var field = dataIntegrityViolationException.getMessage().substring(startIndex+1, endIndex);
+            return MessageError.builder()
+                    .error("Bad request")
+                    .message(MessageFormat.format("Register duplicated - {0}", field))
+                    .build();
         }
         throw new Exception();
     }
