@@ -1,19 +1,27 @@
 package com.magalutest.schedulingcore.controller;
 
+import com.magalutest.schedulingcore.SchedulingCoreApplication;
 import com.magalutest.schedulingcore.config.MessageError;
 import com.magalutest.schedulingcore.controller.dto.CustomerRequestDTO;
 import com.magalutest.schedulingcore.controller.dto.CustomerResponseDTO;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.TestPropertySource;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.UUID;
 
 import static io.restassured.RestAssured.given;
 
+@SpringBootTest(classes = {SchedulingCoreApplication.class}, webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
+@TestPropertySource(properties = {"spring.config.location=classpath:application.yml"})
+@ExtendWith(SpringExtension.class)
 class CustomerControllerTest {
 
-    private static final String URL = "http://localhost:8080/customers";
+    private static final String URL = "/customers";
     final String phone = "5516981778430";
     final CustomerRequestDTO customerRequestDTO = CustomerRequestDTO.builder()
             .name("Jose Marques da Silveira")

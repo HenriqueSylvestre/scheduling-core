@@ -1,16 +1,24 @@
 package com.magalutest.schedulingcore.controller;
 
+import com.magalutest.schedulingcore.SchedulingCoreApplication;
 import com.magalutest.schedulingcore.config.MessageError;
 import com.magalutest.schedulingcore.controller.dto.StatusRequestDTO;
 import com.magalutest.schedulingcore.controller.dto.StatusResponseDTO;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.TestPropertySource;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import static io.restassured.RestAssured.given;
 
+@SpringBootTest(classes = {SchedulingCoreApplication.class}, webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
+@TestPropertySource(properties = {"spring.config.location=classpath:application.yml"})
+@ExtendWith(SpringExtension.class)
 class StatusControllerTest {
 
-    private static final String URL = "http://localhost:8080/status";
+    private static final String URL = "/status";
     final StatusRequestDTO statusRequestDTO = StatusRequestDTO.builder()
             .name("Teste")
             .build();
