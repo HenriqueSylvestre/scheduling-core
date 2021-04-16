@@ -6,6 +6,7 @@ import com.magalutest.schedulingcore.exception.SendDateInvalid;
 import com.magalutest.schedulingcore.model.*;
 import com.magalutest.schedulingcore.repository.CustomerRepository;
 import com.magalutest.schedulingcore.repository.SchedulingRepository;
+import org.apache.tomcat.jni.Local;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

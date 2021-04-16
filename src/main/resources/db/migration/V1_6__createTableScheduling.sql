@@ -13,4 +13,4 @@ CREATE TABLE scheduling (
     CONSTRAINT FK_SCHEDULING_SCHEDULING_SMS FOREIGN KEY (scheduling_sms_uuid) REFERENCES scheduling_sms(uuid),
     CONSTRAINT FK_SCHEDULING_SCHEDULING_PUSH FOREIGN KEY (scheduling_push_uuid) REFERENCES scheduling_push(uuid),
     CONSTRAINT FK_SCHEDULING_SCHEDULING_WHATSAPP FOREIGN KEY (scheduling_whatsapp_uuid) REFERENCES scheduling_whatsapp(uuid)
-)
+);

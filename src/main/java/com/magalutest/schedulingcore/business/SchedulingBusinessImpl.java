@@ -66,8 +66,8 @@ public class SchedulingBusinessImpl implements SchedulingBusiness{
     }
 
     protected void validateExistAnyScheduling(Scheduling scheduling) {
-        if(!(scheduling.getSchedulingEmail() != null || scheduling.getSchedulingEmail() != null
-                || scheduling.getSchedulingEmail() != null || scheduling.getSchedulingEmail() != null)) {
+        if(scheduling.getSchedulingEmail() == null && scheduling.getSchedulingSms() == null
+                && scheduling.getSchedulingPush() == null && scheduling.getSchedulingWhatsapp() == null) {
             throw new ReceiverNotContainValidMeansCommunication();
         }
     }

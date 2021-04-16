@@ -6,4 +6,6 @@ CREATE TABLE customer (
     push CHAR(36) DEFAULT NULL UNIQUE,
     whatsapp TINYINT(1),
     PRIMARY KEY (uuid)
-)
+);
+
+CREATE INDEX IDX_CUSTOMER_PHONE ON customer(phone);
