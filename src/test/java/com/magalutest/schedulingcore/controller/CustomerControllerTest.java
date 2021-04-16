@@ -1,6 +1,5 @@
 package com.magalutest.schedulingcore.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.magalutest.schedulingcore.config.MessageError;
 import com.magalutest.schedulingcore.controller.dto.CustomerRequestDTO;
 import com.magalutest.schedulingcore.controller.dto.CustomerResponseDTO;
@@ -40,7 +39,7 @@ class CustomerControllerTest {
     }
 
     @Test
-    void create() throws JsonProcessingException {
+    void createSuccess() {
         final var responseDTO = given().contentType("application/json").body(customerRequestDTO)
                 .when().post(URL)
                 .then().statusCode(201).extract().jsonPath().getList("data", CustomerResponseDTO.class);
@@ -109,7 +108,7 @@ class CustomerControllerTest {
     }
 
     @Test
-    void delete() {
+    void deleteSuccess() {
         final var customerResponseDTO = createCustomer();
         given().contentType("application/json").pathParam("uuid", customerResponseDTO.getUuid())
                 .when().delete(URL+"/{uuid}")

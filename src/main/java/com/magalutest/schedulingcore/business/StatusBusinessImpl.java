@@ -18,6 +18,7 @@ public class StatusBusinessImpl implements StatusBusiness{
 
     @Override
     public Status create(Status status) {
+        validateName(status);
         return statusRepository.save(status);
     }
 
@@ -30,5 +31,11 @@ public class StatusBusinessImpl implements StatusBusiness{
     @Override
     public void deleteById(long id) {
         statusRepository.deleteById(id);
+    }
+
+    protected void validateName(Status status) {
+        if(status.getName() != null && status.getName().isEmpty()) {
+            status.setName(null);
+        }
     }
 }

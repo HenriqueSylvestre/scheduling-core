@@ -63,7 +63,7 @@ class CustomerBusinessImplTest {
 
 
     @Test
-    void findByUuid() {
+    void findByUuidSuccess() {
         when(customerRepository.findById(uuidCustomer)).thenReturn(Optional.ofNullable(customerPersisted));
 
         final var customerResult = customerBusinessImp.findByUuid(uuidCustomer);
@@ -83,7 +83,7 @@ class CustomerBusinessImplTest {
     }
 
     @Test
-    void findByPhone() {
+    void findByPhoneSuccess() {
         when(customerRepository.findByPhone(phoneCustomer)).thenReturn(customerPersisted);
 
         final var customerResult = customerBusinessImp.findByPhone(phoneCustomer);
@@ -103,7 +103,7 @@ class CustomerBusinessImplTest {
     }
 
     @Test
-    void deleteByUuid() {
+    void deleteByUuidSuccess() {
         customerBusinessImp.deleteByUuid(customerPersisted.getUuid());
         verify(customerRepository).deleteById(customerPersisted.getUuid());
     }

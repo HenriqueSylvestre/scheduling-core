@@ -36,8 +36,8 @@ public class StatusController extends AbstractController{
         return super.build(HttpStatus.OK, statusMapper.mapper(status));
     }
 
-    @DeleteMapping(path = "/{uuid}")
-    public ResponseEntity<Response> delete(@PathVariable(value = "uuid") final long id) {
+    @DeleteMapping(path = "/{id}")
+    public ResponseEntity<Response> delete(@PathVariable(value = "id") final long id) {
         statusBusiness.deleteById(id);
         return super.build(HttpStatus.NO_CONTENT);
     }
