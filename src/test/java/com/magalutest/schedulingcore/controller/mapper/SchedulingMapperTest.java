@@ -74,7 +74,7 @@ class SchedulingMapperTest {
                 .build();
 
     @Test
-    void mapperDTOtoSchedulingSucess() {
+    void mapperDTOtoSchedulingSuccess() {
         final var schedulingRequestDTO = SchedulingRequestDTO.builder()
                 .send(LocalDateTime.now())
                 .message("Reunião amanhã às 09h00.")
@@ -92,7 +92,7 @@ class SchedulingMapperTest {
     }
 
     @Test
-    void mapperSchedulingToResponseDTOSucess() {
+    void mapperSchedulingToResponseDTOSuccess() {
         final var schedulingResponseDTO = schedulingMapper.mapper(scheduling);
 
         Assertions.assertEquals(schedulingResponseDTO.getUuid(), scheduling.getUuid());

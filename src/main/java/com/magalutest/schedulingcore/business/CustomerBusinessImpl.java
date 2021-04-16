@@ -47,25 +47,25 @@ public class CustomerBusinessImpl implements CustomerBusiness {
     }
 
     protected void validadeEmail(Customer customer) {
-        if(customer.getEmail().isEmpty()) {
+        if(customer.getEmail() != null && customer.getEmail().isEmpty()) {
             customer.setEmail(null);
         }
     }
 
     protected void validadePhone(Customer customer) {
-        if(customer.getPhone().isEmpty()) {
+        if(customer.getPhone() != null && customer.getPhone().isEmpty()) {
             customer.setPhone(null);
         }
     }
 
     protected void validadePush(Customer customer) {
-        if(customer.getPush().isEmpty()) {
+        if(customer.getPush() != null && customer.getPush().isEmpty()) {
             customer.setPush(null);
         }
     }
 
     protected void validadeWhatsapp(Customer customer) {
-        if(customer.getPhone().isEmpty()) {
+        if(customer.getPhone() != null && customer.getPhone().isEmpty()) {
             customer.setWhatsapp(false);
         }
     }

@@ -6,7 +6,6 @@ import com.magalutest.schedulingcore.controller.dto.SchedulingRequestDTO;
 import com.magalutest.schedulingcore.controller.dto.SchedulingResponseDTO;
 import com.magalutest.schedulingcore.controller.dto.SchedulingTypesStatusResponseDTO;
 import org.junit.jupiter.api.*;
-import org.springframework.test.annotation.Rollback;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -78,7 +77,6 @@ class SchedulingControllerTest {
     }
 
     @Test
-    @Rollback
     void findStatus() {
         final var schedulingUuidCreated = createScheduling();
         final var responseDTO = given().contentType("application/json").pathParam("uuid", schedulingUuidCreated)
@@ -104,7 +102,6 @@ class SchedulingControllerTest {
     }
 
     @Test
-    @Rollback
     void deleteSuccess() {
         final var schedulingUuidCreated = createScheduling();
         given().contentType("application/json").pathParam("uuid", schedulingUuidCreated)
